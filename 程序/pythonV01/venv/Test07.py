@@ -42,10 +42,27 @@ red=train_data[labels.ravel()==1]
 
 plot_data(blue,red)
 plt.savefig("figures/a.png")
-plt.show()
+# plt.show()
 
 # 训练分类器;
 knn=cv2.ml.KNearest_create()
 # print(knn)
 a=knn.train(train_data,cv2.ml.ROW_SAMPLE,labels)
 print(a)
+
+newcomer,_=generate_data(1)
+print(newcomer)
+#根据generate_data函数，生成新的数据点，把新数据点当做只有一个数据的数据集。
+
+plot_data(blue,red)
+plt.plot(newcomer[0,0],newcomer[0,1],"go",markersize=14);
+#在plt.plot之后加上一个分号抑制输出;
+
+# plt.show()
+
+
+ret,results,neighbor,dist=knn.findNearest(newcomer,1)
+print("Predicted label:\t",results)
+print("Neighbor's label",neighbor)
+print("Distance to neighbor:\t",dist)
+
